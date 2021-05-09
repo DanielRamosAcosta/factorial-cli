@@ -1,0 +1,5 @@
+# Misc
+.DS_Store
+build
+.env
+.idea
