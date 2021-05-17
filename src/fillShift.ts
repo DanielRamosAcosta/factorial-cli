@@ -2,12 +2,14 @@ import { HttpClientFetch } from "./api/HttpClientFetch.ts";
 import { QueryStringServiceImpl } from "./api/services/QueryStringServiceImpl.ts";
 import { CookieParserServiceImpl } from "./api/services/CookieParserServiceImpl.ts";
 import { createFactorialClient } from "./createFactorialClient.ts";
+import { addRandomnessToTime } from "./utils/addRandomnessToTime.ts";
 
 export async function fillShifts(
   email: string,
   password: string,
   year: number,
   month: number,
+  randomness: number,
 ) {
   const client = HttpClientFetch.create(
     { baseURL: "https://api.factorialhr.com" },
@@ -60,14 +62,25 @@ export async function fillShifts(
     month,
   });
 
+
   for (const day of calendar) {
     if (factorial.isLaborable(day) && factorial.isInThePast(day)) {
-      console.log(`Establishing shift for day ${day.day}`);
+      const clockIn = {
+        hours: "08",
+        minutes: addRandomnessToTime(25, randomness).toString().padStart(1, "0"),
+      };
+      const clockOut = {
+        hours: "16",
+        minutes: addRandomnessToTime(35, randomness).toString().padStart(1, "0"),
+      };
+
+      console.log(`Establishing shift for day ${day.day.toString().padStart(2, "0")} --> [${clockIn.hours}:${clockIn.minutes} - ${clockOut.hours}:${clockOut.minutes}]`);
+
 
       await factorial.createShift({
         periodId: period.id,
-        clockIn: "08:00",
-        clockOut: "16:00",
+        clockIn: `${clockIn.hours}:${clockIn.minutes}`,
+        clockOut: `${clockOut.hours}:${clockOut.minutes}`,
         minutes: 0,
         day: day.day,
         observations: null,

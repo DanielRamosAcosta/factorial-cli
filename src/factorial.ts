@@ -20,6 +20,13 @@ cli
       default: config.MONTH,
     },
   )
+    .option(
+    "--randomness <randomness>",
+    "Sets amount of minutes for the randomness.",
+    {
+      default: config.SHIFT_MINUTES_RANDOMNESS,
+    },
+  )
   .option(
     "--email <email>",
     "The email of your factorial account. Also configurable via FACTORIAL_USER_EMAIL env variable.",
@@ -31,15 +38,15 @@ cli
     "--password <password>",
     "The password of your factorial account. Also configurable via FACTORIAL_USER_PASSWORD env variable.",
   )
-  .example("factorial fill-shifts --year 2021 --month 1")
-  .action(({ year, month, email, password = config.USER_PASSWORD }) => {
+  .example("factorial fill-shifts --year 2021 --month 1 --randomness 5")
+  .action(({ year, month, randomness, email, password = config.USER_PASSWORD }) => {
     if (email === "???" || password === "???") {
       console.log("error: Missing email/password\n");
       console.log("For more information try --help");
       Deno.exit(1);
     }
 
-    return fillShifts(email, password, year, month);
+    return fillShifts(email, password, year, month, randomness);
   });
 
 cli.help();
