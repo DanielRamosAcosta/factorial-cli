@@ -1,14 +1,12 @@
 import parseArgs from "https://deno.land/x/deno_minimist@v1.0.2/mod.ts";
-import { printHelp } from "./printHelp.ts";
 
 const env = await Promise.resolve().then(() => Deno.env.toObject()).catch(
-  () => ({})
+  () => ({}),
 );
 
 const args: any = parseArgs(Deno.args);
 
 if (args.help) {
-  printHelp();
   Deno.exit();
 }
 
@@ -22,4 +20,6 @@ export const config = {
   USER_EMAIL: args.e || args.email || env.FACTORIAL_USER_EMAIL || "???",
   USER_PASSWORD: args.p || args.password || env.FACTORIAL_USER_PASSWORD ||
     "???",
+  SHIFT_MINUTES_RANDOMNESS: args.minutesRandomness ||
+    env.SHIFT_MINUTES_RANDOMNESS || 3,
 };
