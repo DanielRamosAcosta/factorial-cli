@@ -32,4 +32,6 @@ OPTIONS:
 
     -p, --password <PASSWORD>
             The password of your factorial account. Also configurable via FACTORIAL_USER_PASSWORD env variable.
+    -r, --randomness <RANDOMNESS>
+            The amount of minutes for the shift entropy. Also configurable via SHIFT_MINUTES_RANDOMNESS env variable.
 ```
