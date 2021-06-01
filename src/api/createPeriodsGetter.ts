@@ -20,7 +20,7 @@ type FactorialPeriod = {
 
 export type GetPeriodResponse = Array<FactorialPeriod>;
 
-export const createPeriodGetter = (client: HttpClient) =>
+export const createPeriodsGetter = (client: HttpClient) =>
   (getPeriodRequest: GetPeriodRequest) =>
     client
       .get<GetPeriodResponse>("/attendance/periods", {
@@ -30,14 +30,4 @@ export const createPeriodGetter = (client: HttpClient) =>
           employee_id: getPeriodRequest.employeeId,
         },
       })
-      .then((response) => response.data)
-      .then((periods) =>
-        periods.length !== 1
-          ? Promise.reject(
-            new Error(
-              `Unexpected number of periods for date ${getPeriodRequest.year}/${getPeriodRequest.month}. Employee: ${getPeriodRequest.employeeId}. Periods: ${periods.length}`,
-            ),
-          )
-          : periods
-      )
-      .then((periods) => periods[0]);
+      .then((response) => response.data);

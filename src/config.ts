@@ -1,14 +1,10 @@
 import parseArgs from "https://deno.land/x/deno_minimist@v1.0.2/mod.ts";
 
 const env = await Promise.resolve().then(() => Deno.env.toObject()).catch(
-  () => ({}),
+  () => ({} as Record<string, string>),
 );
 
-const args: any = parseArgs(Deno.args);
-
-if (args.help) {
-  Deno.exit();
-}
+const args = parseArgs(Deno.args);
 
 const today = new Date();
 

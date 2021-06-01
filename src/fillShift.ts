@@ -41,11 +41,17 @@ export async function fillShifts(
   console.log(`Is: ${employeeId}`);
 
   console.log("Getting period for", year, month);
-  const period = await factorial.getPeriod({
+  const periods = await factorial.getPeriods({
     employeeId,
     year,
     month,
   });
+
+  const period = periods.find((p) => p.permissions.edit);
+
+  if (!period) {
+    throw new Error(`Could not find an editable period`);
+  }
 
   console.log("Getting saved shifts...");
   const shifts = await factorial.getShifts({ periodId: period.id });
@@ -62,20 +68,28 @@ export async function fillShifts(
     month,
   });
 
-
   for (const day of calendar) {
     if (factorial.isLaborable(day) && factorial.isInThePast(day)) {
       const clockIn = {
         hours: "08",
-        minutes: addRandomnessToTime(25, randomness).toString().padStart(1, "0"),
+        minutes: addRandomnessToTime(25, randomness).toString().padStart(
+          1,
+          "0",
+        ),
       };
       const clockOut = {
         hours: "16",
-        minutes: addRandomnessToTime(35, randomness).toString().padStart(1, "0"),
+        minutes: addRandomnessToTime(35, randomness).toString().padStart(
+          1,
+          "0",
+        ),
       };
 
-      console.log(`Establishing shift for day ${day.day.toString().padStart(2, "0")} --> [${clockIn.hours}:${clockIn.minutes} - ${clockOut.hours}:${clockOut.minutes}]`);
-
+      console.log(
+        `Establishing shift for day ${
+          day.day.toString().padStart(2, "0")
+        } --> [${clockIn.hours}:${clockIn.minutes} - ${clockOut.hours}:${clockOut.minutes}]`,
+      );
 
       await factorial.createShift({
         periodId: period.id,

@@ -7,7 +7,7 @@ Fill your factorial shifts with ease
 ## Installation
 
 ```sh
-deno install --allow-env --allow-net https://raw.githubusercontent.com/DanielRamosAcosta/factorial-cli/main/src/main.ts
+deno install --allow-env --allow-net https://raw.githubusercontent.com/DanielRamosAcosta/factorial-cli/main/src/factorial.ts
 ```
 
 Env permissions are optional.
@@ -32,7 +32,7 @@ OPTIONS:
 
     -p, --password <PASSWORD>
             The password of your factorial account. Also configurable via FACTORIAL_USER_PASSWORD env variable.
-            
+
     -r, --randomness <RANDOMNESS>
             The amount of minutes for the shift clock in and out entropy. Also configurable via SHIFT_MINUTES_RANDOMNESS env variable.
 ```

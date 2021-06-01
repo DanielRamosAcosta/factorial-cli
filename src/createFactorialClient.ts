@@ -7,7 +7,7 @@ import {
   createCalendarGetter,
   FactorialCalendarDay,
 } from "./api/createCalendarGetter.ts";
-import { createPeriodGetter } from "./api/createPeriodGetter.ts";
+import { createPeriodsGetter } from "./api/createPeriodsGetter.ts";
 import { createShiftGetter } from "./api/createShiftGetter.ts";
 import {
   createEmployeesGetter,
@@ -24,7 +24,7 @@ export function createFactorialClient(
   const createShift = createShiftCreator(axiosInstance);
   const deleteShift = createShiftDeleter(axiosInstance);
   const getCalendar = createCalendarGetter(axiosInstance);
-  const getPeriod = createPeriodGetter(axiosInstance);
+  const getPeriods = createPeriodsGetter(axiosInstance);
   const getShifts = createShiftGetter(axiosInstance);
   const login = createLogin(axiosInstance, cookieParser, qs);
 
@@ -64,7 +64,7 @@ export function createFactorialClient(
     createShift,
     deleteShift,
     getCalendar,
-    getPeriod,
+    getPeriods,
     getShifts,
     isWeekend,
     isHoliday,
