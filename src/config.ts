@@ -18,4 +18,6 @@ export const config = {
     "???",
   SHIFT_MINUTES_RANDOMNESS: args.minutesRandomness ||
     env.SHIFT_MINUTES_RANDOMNESS || 3,
+  ENTRY_TIME: args.entryTime || env.ENTRY_TIME || 8,
+  EXIT_TIME: args.exitTime || env.EXIT_TIME || 16
 };
