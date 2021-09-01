@@ -1,8 +1,29 @@
-import { config } from "./config.ts";
-import { fillShifts } from "./fillShift.ts";
 import { cac } from "../deps.ts";
+import { config } from "./config.ts";
+import { createFillShifts } from "./use-cases/fillShift.ts";
+import { HttpClientFetch } from "./factorial/api/HttpClientFetch.ts";
+import { CookieParserServiceImpl } from "./factorial/api/services/CookieParserServiceImpl.ts";
+import { QueryStringServiceImpl } from "./factorial/api/services/QueryStringServiceImpl.ts";
+import { createFactorialApiClient } from "./factorial/createFactorialApiClient.ts";
+import { createFactorialUtils } from "./factorial/createFactorialUtils.ts";
 
 const cli = cac("factorial");
+
+const client = HttpClientFetch.create({
+  baseURL: "https://api.factorialhr.com",
+});
+const queryStringService = QueryStringServiceImpl.create();
+const cookieParserService = CookieParserServiceImpl.create();
+
+const factorial = createFactorialApiClient(
+  client,
+  cookieParserService,
+  queryStringService
+);
+
+const factorialUtils = createFactorialUtils();
+
+const fillShifts = createFillShifts(factorial, factorialUtils);
 
 cli
   .command("fill-shifts", "Fills the shifts of the given year and month")
@@ -11,34 +32,34 @@ cli
     "Sets the year to fill the shifts. Defaults to current year.",
     {
       default: config.YEAR,
-    },
+    }
   )
   .option(
     "--month <month>",
     "Sets the month to fill the shifts. Defaults to current month 5 days ago.",
     {
       default: config.MONTH,
-    },
+    }
   )
   .option(
     "--randomness <randomness>",
     "Sets amount of minutes for the randomness.",
     {
       default: config.SHIFT_MINUTES_RANDOMNESS,
-    },
+    }
   )
   .option(
     "--entryTime <entryTime>",
     "Set your default entryTime to fill your shifts [example: 8]",
     {
-      default: config.ENTRY_TIME
+      default: config.ENTRY_TIME,
     }
   )
   .option(
     "--exitTime <exitTime>",
     "Set your default exitTime to fill your shifts [example: 16]",
     {
-      default: config.EXIT_TIME
+      default: config.EXIT_TIME,
     }
   )
   .option(
@@ -46,23 +67,39 @@ cli
     "The email of your factorial account. Also configurable via FACTORIAL_USER_EMAIL env variable.",
     {
       default: config.USER_EMAIL,
-    },
+    }
   )
   .option(
     "--password <password>",
-    "The password of your factorial account. Also configurable via FACTORIAL_USER_PASSWORD env variable.",
+    "The password of your factorial account. Also configurable via FACTORIAL_USER_PASSWORD env variable."
   )
   .example("factorial fill-shifts --year 2021 --month 1 --randomness 5")
   .action(
-    ({ year, month, randomness, entryTime, exitTime, email, password = config.USER_PASSWORD }) => {
+    ({
+      year,
+      month,
+      randomness,
+      entryTime,
+      exitTime,
+      email,
+      password = config.USER_PASSWORD,
+    }) => {
       if (email === "???" || password === "???") {
         console.log("error: Missing email/password\n");
         console.log("For more information try --help");
         Deno.exit(1);
       }
 
-      return fillShifts(email, password, year, month, randomness, entryTime, exitTime);
-    },
+      return fillShifts(
+        email,
+        password,
+        year,
+        month,
+        randomness,
+        entryTime,
+        exitTime
+      );
+    }
   );
 
 cli.help();

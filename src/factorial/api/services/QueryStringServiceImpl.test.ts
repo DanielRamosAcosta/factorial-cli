@@ -1,4 +1,4 @@
-import { assertEquals } from "../../../dev_deps.ts";
+import { assertEquals } from "../../../../dev_deps.ts";
 import { QueryStringServiceImpl } from "./QueryStringServiceImpl.ts";
 
 Deno.test("query string service works", () => {
@@ -18,6 +18,6 @@ Deno.test("query string service works", () => {
 
   assertEquals(
     result,
-    "authenticity_token=71UnnNZGvsBb2KgOFc%2BL1mAppF9aHeA00bcw2Xmhnusmf7Kvv0VGh1JsM2QRnLvFkcUtCcHVKfhpe5DFW2zF7w%3D%3D&return_host=factorialhr.es&user%5Bemail%5D=danielramos%40example.com&user%5Bpassword%5D=password&user%5Bremember_me%5D=0&commit=Iniciar%2Bsesi%C3%B3n",
+    "authenticity_token=71UnnNZGvsBb2KgOFc%2BL1mAppF9aHeA00bcw2Xmhnusmf7Kvv0VGh1JsM2QRnLvFkcUtCcHVKfhpe5DFW2zF7w%3D%3D&return_host=factorialhr.es&user%5Bemail%5D=danielramos%40example.com&user%5Bpassword%5D=password&user%5Bremember_me%5D=0&commit=Iniciar%2Bsesi%C3%B3n"
   );
 });

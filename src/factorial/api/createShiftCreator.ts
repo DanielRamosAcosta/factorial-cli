@@ -1,6 +1,6 @@
 import { HttpClient } from "./HttpClient.ts";
 
-type CreateShiftRequest = {
+export type CreateShiftRequest = {
   periodId: number;
   clockIn: string;
   clockOut: string;
@@ -10,7 +10,7 @@ type CreateShiftRequest = {
   history: never[];
 };
 
-type CreateShiftResponse = {
+export type CreateShiftResponse = {
   id: number;
   period_id: number;
   day: number;
@@ -21,10 +21,8 @@ type CreateShiftResponse = {
   observations: null;
 };
 
-export const createShiftCreator = (client: HttpClient) =>
-  (
-    createShiftRequest: CreateShiftRequest,
-  ) =>
+export const createShiftCreator =
+  (client: HttpClient) => (createShiftRequest: CreateShiftRequest) =>
     client
       .post<CreateShiftResponse>("/attendance/shifts", {
         period_id: createShiftRequest.periodId,

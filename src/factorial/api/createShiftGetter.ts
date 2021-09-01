@@ -17,12 +17,12 @@ type FactorialShift = {
 
 export type GetShiftsResponse = Array<FactorialShift>;
 
-export const createShiftGetter = (client: HttpClient) =>
-  (options: GetShiftsRequest) =>
+export const createShiftGetter =
+  (client: HttpClient) => (getShiftsRequest: GetShiftsRequest) =>
     client
       .get<GetShiftsResponse>("/attendance/shifts", {
         params: {
-          period_id: options.periodId,
+          period_id: getShiftsRequest.periodId,
         },
       })
       .then((response) => response.data);

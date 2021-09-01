@@ -1,4 +1,4 @@
-import { assertEquals } from "../../dev_deps.ts";
+import { assertEquals } from "../../../dev_deps.ts";
 import { createLogin } from "./createLogin.ts";
 import { HttpClientFetch } from "./HttpClientFetch.ts";
 import { QueryStringServiceImpl } from "./services/QueryStringServiceImpl.ts";
@@ -8,9 +8,9 @@ Deno.test({
   name: "login works",
   ignore: true,
   fn: async () => {
-    const client = HttpClientFetch.create(
-      { baseURL: "https://api.factorialhr.com" },
-    );
+    const client = HttpClientFetch.create({
+      baseURL: "https://api.factorialhr.com",
+    });
     const queryStringService = QueryStringServiceImpl.create();
     const cookieParserService = CookieParserServiceImpl.create();
 

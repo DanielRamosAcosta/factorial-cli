@@ -1,9 +1,9 @@
-import { HttpClient, HttpResponse, RequestOptions } from "./HttpClient.ts";
-
-type HttpClientOptions = {
-  baseURL?: string;
-  headers?: Record<string, string>;
-};
+import {
+  HttpClient,
+  HttpClientOptions,
+  HttpResponse,
+  RequestOptions,
+} from "./HttpClient.ts";
 
 type PrivateHttpClientOptions = {
   baseURL: string;
@@ -36,7 +36,7 @@ export class HttpClientFetch implements HttpClient {
 
   async get<T = any>(
     url: string,
-    options?: RequestOptions,
+    options?: RequestOptions
   ): Promise<HttpResponse<T>> {
     const fetchOptions: RequestInit = {
       method: "GET",
@@ -87,7 +87,7 @@ export class HttpClientFetch implements HttpClient {
   async post<T = any>(
     url: string,
     body: any,
-    options?: RequestOptions,
+    options?: RequestOptions
   ): Promise<HttpResponse<T>> {
     const fetchOptions: RequestInit = {
       method: "POST",
@@ -95,15 +95,11 @@ export class HttpClientFetch implements HttpClient {
       headers: {
         ...this.options.headers,
         ...options?.headers,
-        ...(
-          typeof body === "string"
-            ? { "content-type": "application/x-www-form-urlencoded" }
-            : { "content-type": "application/json" }
-        ),
+        ...(typeof body === "string"
+          ? { "content-type": "application/x-www-form-urlencoded" }
+          : { "content-type": "application/json" }),
       },
-      ...(
-        options?.maxRedirects === 0 ? { redirect: "manual" } : {}
-      ),
+      ...(options?.maxRedirects === 0 ? { redirect: "manual" } : {}),
     };
 
     const response = await fetch(this.options.baseURL + url, fetchOptions);

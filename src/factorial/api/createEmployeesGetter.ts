@@ -89,13 +89,12 @@ interface Hirings {
   edit_gross_salary: boolean;
 }
 
-export type GetCalendarResponse = Array<Employee | MySelf>;
+export type GetEmployeesResponse = Array<Employee | MySelf>;
 
-export const createEmployeesGetter = (client: HttpClient) =>
-  () =>
-    client.get<GetCalendarResponse>("/employees").then((response) =>
-      response.data
-    );
+export const createEmployeesGetter = (client: HttpClient) => () =>
+  client
+    .get<GetEmployeesResponse>("/employees")
+    .then((response) => response.data);
 
 export const isMySelf = (employee: Employee | MySelf): employee is MySelf =>
   "identifier" in employee;
