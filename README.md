@@ -35,4 +35,10 @@ OPTIONS:
 
     -r, --randomness <RANDOMNESS>
             The amount of minutes for the shift clock in and out entropy. Also configurable via SHIFT_MINUTES_RANDOMNESS env variable.
+
+        --entryTime <ENTRY_TIME>
+            The default entry time you want to set to fill shifts. Also configurable via ENTRY_TIME env variable.
+        
+        --exitTime <EXIT_TIME>
+            The default exit time you want to set to fill shifts. Also configurable via EXIT_TIME env variable.
 ```

@@ -10,6 +10,8 @@ export async function fillShifts(
   year: number,
   month: number,
   randomness: number,
+  entryTime: number,
+  exitTime: number,
 ) {
   const client = HttpClientFetch.create(
     { baseURL: "https://api.factorialhr.com" },
@@ -71,18 +73,18 @@ export async function fillShifts(
   for (const day of calendar) {
     if (factorial.isLaborable(day) && factorial.isInThePast(day)) {
       const clockIn = {
-        hours: "08",
-        minutes: addRandomnessToTime(25, randomness).toString().padStart(
+        hours: entryTime ?? "08",
+        minutes: randomness == 0 ? "00" : addRandomnessToTime(25, randomness).toString().padStart(
           1,
           "0",
-        ),
+        )
       };
       const clockOut = {
-        hours: "16",
-        minutes: addRandomnessToTime(35, randomness).toString().padStart(
+        hours: exitTime ?? "16",
+        minutes: randomness == 0 ? "00" : addRandomnessToTime(35, randomness).toString().padStart(
           1,
           "0",
-        ),
+        ) 
       };
 
       console.log(
