@@ -6,12 +6,10 @@ const env = await Promise.resolve().then(() => Deno.env.toObject()).catch(
 
 const args = parseArgs(Deno.args);
 
-const today = new Date();
-
 const fiveDaysAgo = new Date(Date.now() - 1000 * 60 * 60 * 24 * 5);
 
 export const config = {
-  YEAR: args.year || today.getFullYear(),
+  YEAR: args.year || fiveDaysAgo.getFullYear(),
   MONTH: args.month || fiveDaysAgo.getMonth() + 1,
   USER_EMAIL: args.e || args.email || env.FACTORIAL_USER_EMAIL || "???",
   USER_PASSWORD: args.p || args.password || env.FACTORIAL_USER_PASSWORD ||
