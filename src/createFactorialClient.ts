@@ -9,6 +9,7 @@ import {
 } from "./api/createCalendarGetter.ts";
 import { createPeriodsGetter } from "./api/createPeriodsGetter.ts";
 import { createShiftGetter } from "./api/createShiftGetter.ts";
+import { createCustomFieldAdder } from "./api/createCustomFieldAdder.ts";
 import {
   createEmployeesGetter,
   isMySelf,
@@ -18,7 +19,7 @@ import { createLogin } from "./api/createLogin.ts";
 export function createFactorialClient(
   axiosInstance: HttpClient,
   cookieParser: CookieParserService,
-  qs: QueryStringService,
+  qs: QueryStringService
 ) {
   const getEmployees = createEmployeesGetter(axiosInstance);
   const createShift = createShiftCreator(axiosInstance);
@@ -26,6 +27,7 @@ export function createFactorialClient(
   const getCalendar = createCalendarGetter(axiosInstance);
   const getPeriods = createPeriodsGetter(axiosInstance);
   const getShifts = createShiftGetter(axiosInstance);
+  const addCustomField = createCustomFieldAdder(axiosInstance);
   const login = createLogin(axiosInstance, cookieParser, qs);
 
   const isWeekend = (day: FactorialCalendarDay) => !day.is_laborable;
@@ -37,8 +39,10 @@ export function createFactorialClient(
     const today = new Date();
     const currentCalendarDate = new Date(day.date);
 
-    return currentCalendarDate.getMonth() === today.getMonth() &&
-      day.day > today.getDate();
+    return (
+      currentCalendarDate.getMonth() === today.getMonth() &&
+      day.day > today.getDate()
+    );
   };
 
   const isLaborable = (day: FactorialCalendarDay) =>
@@ -66,6 +70,7 @@ export function createFactorialClient(
     getCalendar,
     getPeriods,
     getShifts,
+    addCustomField,
     isWeekend,
     isHoliday,
     isInTheFuture,

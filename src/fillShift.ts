@@ -12,17 +12,19 @@ export async function fillShifts(
   randomness: number,
   entryTime: number,
   exitTime: number,
+  projectFieldId: number,
+  project?: string
 ) {
-  const client = HttpClientFetch.create(
-    { baseURL: "https://api.factorialhr.com" },
-  );
+  const client = HttpClientFetch.create({
+    baseURL: "https://api.factorialhr.com",
+  });
   const queryStringService = QueryStringServiceImpl.create();
   const cookieParserService = CookieParserServiceImpl.create();
 
   const factorial = createFactorialClient(
     client,
     cookieParserService,
-    queryStringService,
+    queryStringService
   );
 
   console.log("Logging in...");
@@ -74,26 +76,28 @@ export async function fillShifts(
     if (factorial.isLaborable(day) && factorial.isInThePast(day)) {
       const clockIn = {
         hours: entryTime ?? "08",
-        minutes: randomness == 0 ? "00" : addRandomnessToTime(25, randomness).toString().padStart(
-          1,
-          "0",
-        )
+        minutes:
+          randomness == 0
+            ? "00"
+            : addRandomnessToTime(25, randomness).toString().padStart(1, "0"),
       };
       const clockOut = {
         hours: exitTime ?? "16",
-        minutes: randomness == 0 ? "00" : addRandomnessToTime(35, randomness).toString().padStart(
-          1,
-          "0",
-        ) 
+        minutes:
+          randomness == 0
+            ? "00"
+            : addRandomnessToTime(35, randomness).toString().padStart(1, "0"),
       };
 
       console.log(
-        `Establishing shift for day ${
-          day.day.toString().padStart(2, "0")
-        } --> [${clockIn.hours}:${clockIn.minutes} - ${clockOut.hours}:${clockOut.minutes}]`,
+        `Establishing shift for day ${day.day
+          .toString()
+          .padStart(2, "0")} --> [${clockIn.hours}:${clockIn.minutes} - ${
+          clockOut.hours
+        }:${clockOut.minutes}]`
       );
 
-      await factorial.createShift({
+      const shift = await factorial.createShift({
         periodId: period.id,
         clockIn: `${clockIn.hours}:${clockIn.minutes}`,
         clockOut: `${clockOut.hours}:${clockOut.minutes}`,
@@ -102,6 +106,19 @@ export async function fillShifts(
         observations: null,
         history: [],
       });
+
+      if (project) {
+        console.log(
+          `Establishing shift project for shift ${shift.id} to ${project}`
+        );
+
+        await factorial.addCustomField(shift.id, {
+          field_id: projectFieldId,
+          instance_id: shift.id,
+          model: "attendance-shift",
+          value: project,
+        });
+      }
     }
   }
 }
