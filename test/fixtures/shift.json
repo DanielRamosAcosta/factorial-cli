@@ -1,0 +1,22 @@
+{
+  "id": 510456685,
+  "periodId": 10005572,
+  "day": 18,
+  "clockIn": "08:00",
+  "clockOut": "16:00",
+  "minutes": 480,
+  "history": [],
+  "observations": null,
+  "date": "2023-09-18",
+  "halfDay": null,
+  "workable": true,
+  "automaticClockIn": false,
+  "automaticClockOut": false,
+  "clockInWithSeconds": "08:00:00",
+  "employeeId": 292281,
+  "permissions": {
+    "history": true
+  },
+  "locationType": null,
+  "timeSettingsBreakConfigurationId": null
+}

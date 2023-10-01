@@ -1,0 +1,46 @@
+[
+  {
+    "id": 104557122,
+    "periodId": 10500572,
+    "day": 18,
+    "clockIn": "08:00",
+    "clockOut": "16:00",
+    "minutes": 480,
+    "history": [],
+    "observations": null,
+    "date": "2023-09-18",
+    "halfDay": null,
+    "workable": true,
+    "automaticClockIn": false,
+    "automaticClockOut": false,
+    "clockInWithSeconds": "08:00:00",
+    "employeeId": 292281,
+    "permissions": {
+      "history": true
+    },
+    "locationType": null,
+    "timeSettingsBreakConfigurationId": null
+  },
+  {
+    "id": 104557128,
+    "periodId": 10500572,
+    "day": 19,
+    "clockIn": "08:01",
+    "clockOut": "16:01",
+    "minutes": 480,
+    "history": [],
+    "observations": null,
+    "date": "2023-09-19",
+    "halfDay": null,
+    "workable": true,
+    "automaticClockIn": false,
+    "automaticClockOut": false,
+    "clockInWithSeconds": "08:01:00",
+    "employeeId": 292281,
+    "permissions": {
+      "history": true
+    },
+    "locationType": null,
+    "timeSettingsBreakConfigurationId": null
+  }
+]

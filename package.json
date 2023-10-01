@@ -1,0 +1,26 @@
+{
+  "name": "factorial-cli",
+  "version": "1.0.0",
+  "description": "Fill your factorial shifts with ease",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "vitest",
+    "build": "esbuild src/infrastructure/cli/main.ts --bundle --outfile=dist/factorial.js --platform=node --target=node18.18 --format=esm",
+    "typecheck": "tsc --noEmit"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/yargs": "^17.0.32",
+    "esbuild": "^0.20.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.2",
+    "yargs": "^17.7.2"
+  },
+  "dependencies": {
+    "camelcase-keys": "^9.1.3",
+    "zod": "^3.22.4"
+  }
+}
