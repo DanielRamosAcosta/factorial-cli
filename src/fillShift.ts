@@ -114,8 +114,6 @@ export async function fillShifts(
 
         await factorial.addCustomField(shift.id, {
           field_id: projectFieldId,
-          instance_id: shift.id,
-          model: "attendance-shift",
           value: project,
         });
       }

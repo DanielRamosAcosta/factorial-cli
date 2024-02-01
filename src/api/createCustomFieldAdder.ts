@@ -2,33 +2,32 @@ import { HttpClient } from "./HttpClient.ts";
 
 type AddCustomFieldRequest = {
   field_id: number;
-  instance_id: number;
-  model: "attendance-shift";
   value: string;
 };
 
-type AddCustomFiledResponse = {
-  field_id: number;
+type AddCustomFieldResponse = {
   id: number;
-  installed: false;
-  instance_id: number;
   label: string;
-  required: true;
-  type: "single_choice";
   value: string;
+  field_id: number;
+  required: true;
+  instance_id: number;
 };
 
 export const createCustomFieldAdder =
   (client: HttpClient) =>
   (shiftId: number, createShiftRequest: AddCustomFieldRequest) =>
     client
-      .post<AddCustomFiledResponse>(
-        `/custom_fields/values/attendance-shift/${shiftId}`,
+      .post<AddCustomFieldResponse>(
+        `/api/v1/custom_fields/values`,
         {
-          field_id: createShiftRequest.field_id,
-          instance_id: createShiftRequest.instance_id,
-          model: createShiftRequest.model,
           value: createShiftRequest.value,
+        }, 
+        {
+          params: {
+            field_id: createShiftRequest.field_id,
+            instance_id: shiftId
+          },
         }
       )
       .then((response) => response.data);

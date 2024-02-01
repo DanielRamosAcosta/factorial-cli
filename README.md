@@ -38,7 +38,13 @@ OPTIONS:
 
         --entryTime <ENTRY_TIME>
             The default entry time you want to set to fill shifts. Also configurable via ENTRY_TIME env variable.
-        
+
         --exitTime <EXIT_TIME>
             The default exit time you want to set to fill shifts. Also configurable via EXIT_TIME env variable.
+
+        --project-field-id <projectFieldId>
+            The id of the project custom field ID
+
+        --project <project>
+            Establishes the custom field for the project you are working on.
 ```
