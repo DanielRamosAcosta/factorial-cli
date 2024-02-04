@@ -6,14 +6,14 @@
   "type": "module",
   "scripts": {
     "test": "vitest",
-    "build": "esbuild src/infrastructure/cli/main.ts --bundle --outfile=dist/factorial.js --platform=node --target=node18.18 --format=esm",
+    "build": "tsc",
     "typecheck": "tsc --noEmit"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^20.11.16",
     "@types/yargs": "^17.0.32",
-    "esbuild": "^0.20.0",
     "prettier": "^3.2.5",
     "typescript": "^5.3.3",
     "vitest": "^1.2.2",
