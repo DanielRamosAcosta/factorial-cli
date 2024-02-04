@@ -3,3 +3,6 @@
 build
 .env
 .idea
+
+node_modules
+dist

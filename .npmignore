@@ -1,0 +1,6 @@
+src
+test
+.idea
+coverage
+.env
+dist/test

@@ -1,0 +1,26 @@
+{
+  "data": {
+    "projectManagement": {
+      "projectWorkers": [
+        {
+          "id": 193161,
+          "assigned": true,
+          "project": {
+            "id": 60154,
+            "name": "Apple",
+            "status": "active"
+          }
+        },
+        {
+          "id": 691157,
+          "assigned": true,
+          "project": {
+            "id": 11566,
+            "name": "Microsoft",
+            "status": "active"
+          }
+        }
+      ]
+    }
+  }
+}
