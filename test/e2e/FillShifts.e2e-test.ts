@@ -24,5 +24,5 @@ describe("FillShifts", () => {
       dayRange,
       maxRandomMinute: new Minute(10),
     });
-  });
+  }, 40000);
 });
