@@ -1,6 +1,6 @@
 {
   "name": "factorial-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "description": "Fill your factorial shifts with ease",
   "main": "dist/src/infrastructure/cli/main.js",
@@ -24,11 +24,11 @@
     "prettier": "^3.2.5",
     "rimraf": "^5.0.5",
     "typescript": "^5.3.3",
-    "vitest": "^1.2.2",
-    "yargs": "^17.7.2"
+    "vitest": "^1.2.2"
   },
   "dependencies": {
     "camelcase-keys": "^9.1.3",
+    "yargs": "^17.7.2",
     "zod": "^3.22.4"
   }
 }
