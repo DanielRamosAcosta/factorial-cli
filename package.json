@@ -1,20 +1,27 @@
 {
   "name": "factorial-cli",
   "version": "1.0.0",
-  "description": "Fill your factorial shifts with ease",
-  "main": "index.js",
   "type": "module",
+  "description": "Fill your factorial shifts with ease",
+  "main": "dist/src/infrastructure/cli/main.js",
+  "bin": {
+    "factorial": "dist/src/infrastructure/cli/main.js"
+  },
+  "repository": "https://github.com/DanielRamosAcosta/factorial-cli",
+  "homepage": "https://github.com/DanielRamosAcosta/factorial-cli",
   "scripts": {
     "test": "vitest",
     "build": "tsc",
+    "clean": "rimraf dist coverage",
     "typecheck": "tsc --noEmit"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Daniel Ramos Acosta",
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.11.16",
     "@types/yargs": "^17.0.32",
     "prettier": "^3.2.5",
+    "rimraf": "^5.0.5",
     "typescript": "^5.3.3",
     "vitest": "^1.2.2",
     "yargs": "^17.7.2"
