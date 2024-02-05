@@ -1,0 +1,19 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      time: "09:00"
+      timezone: "Europe/Madrid"
+  - package-ecosystem: "npm"
+    directory: "/"
+    groups:
+      dependencies:
+        dependency-type: production
+      dev-dependencies:
+        dependency-type: development
+    schedule:
+      interval: "weekly"
+      time: "09:00"
+      timezone: "Europe/Madrid"
