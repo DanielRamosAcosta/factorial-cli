@@ -11,7 +11,7 @@ export const MySelf = Employee.extend({
   countryMetadata: z.object({
     id: z.number(),
     irpfInCents: z.number().nullable(),
-    socialSecurityNumber: z.string(),
+    socialSecurityNumber: z.string().nullable(),
     hasWorkPermit: z.boolean().nullable(),
   }),
   contactName: z.string(),

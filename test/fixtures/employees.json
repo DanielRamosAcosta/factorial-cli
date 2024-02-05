@@ -239,5 +239,139 @@
     "isTerminating": false,
     "terminationReasonType": null,
     "terminationTypeDescription": null
+  },
+  {
+    "accessId": 240968,
+    "jobTitle": null,
+    "id": 298222,
+    "managerId": 1924,
+    "managedByCurrent": false,
+    "supervisedByCurrent": false,
+    "fiscalCountry": "es",
+    "legalEntityCurrency": "EUR",
+    "timeoffPolicyId": 2235,
+    "timeoffManagerId": 9724,
+    "timeoffSupervisedByCurrent": false,
+    "tenureStartDate": null,
+    "locationId": 16887,
+    "employeeGroupId": 6223,
+    "payrollHiringId": 311520,
+    "isEligibleForPayroll": false,
+    "attendable": true,
+    "attendanceEmployeesPolicyId": 29,
+    "attendanceEmployeesSettingId": 75051,
+    "paymentFrequency": "monthly",
+    "contractId": null,
+    "preferredName": null,
+    "hasRegularAccess": true,
+    "regularAccessStartsOn": "2019-10-04",
+    "irpf": null,
+    "pronouns": null,
+    "showBirthday": true,
+    "permissions": {
+      "hirings": {
+        "read": true,
+        "edit": false,
+        "editGrossSalary": false,
+        "seeGrossSalary": true
+      },
+      "leaves": {
+        "read": true,
+        "create": true,
+        "approve": false,
+        "manageDocuments": true,
+        "manageIncidences": false,
+        "update": true
+      },
+      "personal": {
+        "read": true,
+        "edit": true,
+        "editManager": false
+      },
+      "termination": false,
+      "profile": {
+        "email": {
+          "read": true,
+          "edit": true
+        }
+      },
+      "documents": {
+        "read": true,
+        "edit": true
+      },
+      "customTables": {
+        "create": false,
+        "remove": false
+      },
+      "payrollSupplements": {
+        "supplements": {
+          "read": false,
+          "create": false
+        },
+        "observations": {
+          "read": false,
+          "create": false
+        }
+      },
+      "tasks": {
+        "read": true
+      },
+      "bookings": {
+        "upsert": true,
+        "bulkCancel": true
+      },
+      "shifts": {
+        "manage": true
+      },
+      "preferredName": {
+        "read": true
+      },
+      "internalDocuments": {
+        "see": false,
+        "edit": false
+      },
+      "publicDocuments": {
+        "see": true,
+        "edit": false
+      },
+      "expenses": {
+        "create": true,
+        "cards": {
+          "request": true
+        }
+      },
+      "companyDocuments": false
+    },
+    "country": "es",
+    "state": "Santa Cruz de Tenerife",
+    "postalCode": "38000",
+    "city": "La Laguna",
+    "addressLine1": "Calle Walabi 32 Sydney",
+    "addressLine2": null,
+    "countryMetadata": {
+      "id": 72061,
+      "irpfInCents": null,
+      "socialSecurityNumber": null,
+      "hasWorkPermit": null
+    },
+    "contactName": "Andrés Herrera Cárdenas",
+    "contactNumber": "+34 667 12 23 34",
+    "phoneNumber": "666995511",
+    "hiredOn": null,
+    "identifier": "18523583G",
+    "identifierType": "dni",
+    "gender": "male",
+    "nationality": "es",
+    "birthdayOn": "1993-05-22",
+    "bankNumber": "ES12 3456 7890 1113 1315 1518",
+    "swiftBic": null,
+    "bankNumberFormat": null,
+    "companyIdentifier": null,
+    "baseCompensationType": null,
+    "baseCompensationAmountInCents": null,
+    "terminatedOn": null,
+    "isTerminating": false,
+    "terminationReasonType": null,
+    "terminationTypeDescription": null
   }
 ]
