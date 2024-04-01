@@ -10,7 +10,7 @@ type PrivateHttpClientOptions = {
   headers: Record<string, string>;
 };
 
-class HttpClientError<T> extends Error {
+export class HttpClientError<T> extends Error {
   constructor(public response: HttpResponse<T>) {
     super(`Request failed with status code ${response.status}`);
   }
