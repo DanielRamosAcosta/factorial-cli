@@ -86,19 +86,26 @@ export class FactorialClient {
   }
 
   async getProjects(employeeId: number) {
-    const query = `query GetProjectsAssignedToProjectWorkers($employeeIds: [Int!]!, $onlyActiveProjects: Boolean!, $assigned: Boolean!) {
+    const query = `query GetProjectsAssignedToProjectWorkers($assigned: Boolean!, $employeeIds: [Int!]!, $includeSubprojects: Boolean = false, $onlyActiveProjects: Boolean!) {
       projectManagement {
         projectWorkers(
+          assigned: $assigned
           employeeIds: $employeeIds
           projectActive: $onlyActiveProjects
-          assigned: $assigned
         ) {
           id
           assigned
-          project {
+          employee {
+            id
+          }
+          imputableProject {
             id
             name
             status
+            subprojects @include(if: $includeSubprojects) {
+              id
+              name
+            }
           }
         }
       }
@@ -107,9 +114,10 @@ export class FactorialClient {
     const response = await this.client.post("/graphql", {
       operationName: "GetProjectsAssignedToProjectWorkersQuery",
       variables: {
-        employeeIds: [employeeId],
-        onlyActiveProjects: true,
         assigned: true,
+        employeeIds: [employeeId],
+        includeSubprojects: true,
+        onlyActiveProjects: true,
       },
       query,
     });

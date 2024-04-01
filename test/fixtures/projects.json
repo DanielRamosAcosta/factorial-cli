@@ -5,19 +5,21 @@
         {
           "id": 193161,
           "assigned": true,
-          "project": {
+          "imputableProject": {
             "id": 60154,
             "name": "Apple",
-            "status": "active"
+            "status": "active",
+            "subprojects": []
           }
         },
         {
           "id": 691157,
           "assigned": true,
-          "project": {
+          "imputableProject": {
             "id": 11566,
             "name": "Microsoft",
-            "status": "active"
+            "status": "active",
+            "subprojects": []
           }
         }
       ]
