@@ -19,10 +19,13 @@ describe("FillShifts", () => {
     const start = MomentOfTheDay.oClock(8);
     const end = MomentOfTheDay.oClock(16);
     const dayRange = DayRange.from(start).to(end);
+    const projectName = process.env.FACTORIAL_PROJECT_NAME;
+
+    if (!projectName) throw new Error("FACTORIAL_PROJECT_NAME is not set");
 
     await app.fillShifts.execute({
       monthOfTheYear: MonthOfTheYear.at(year, month),
-      projectName: "Inditex",
+      projectName,
       dayRange,
       maxRandomMinute: new Minute(10),
     });
