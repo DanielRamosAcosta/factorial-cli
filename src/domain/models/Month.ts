@@ -1,8 +1,10 @@
-import { Day } from "./Day.js";
-import { Primitives } from "../../shared/Primitives.js";
-import { MonthOfTheYear } from "./MonthOfTheYear.js";
+import { Day, DayPrimitives } from "./Day.js";
+import { MonthOfTheYear, MonthOfTheYearPrimitives } from "./MonthOfTheYear.js";
 
-type MonthPrimitives = Primitives<Month>;
+type MonthPrimitives = {
+  monthOfTheYear: MonthOfTheYearPrimitives;
+  days: Array<DayPrimitives>;
+};
 
 export class Month {
   static fromPrimitives(primitives: MonthPrimitives) {
@@ -19,12 +21,5 @@ export class Month {
 
   daysBefore(date: Date) {
     return this.days.filter((day) => day.toDate(this.monthOfTheYear) < date);
-  }
-
-  toPrimitives() {
-    return {
-      monthOfTheYear: this.monthOfTheYear.toPrimitives(),
-      days: this.days.map(Day.toPrimitives),
-    };
   }
 }
