@@ -27,15 +27,8 @@ export class HttpClientFetch implements HttpClient {
 
   constructor(private options: PrivateHttpClientOptions) {}
 
-  updateConfig(options: HttpClientOptions) {
-    this.options = {
-      ...this.options,
-      ...options,
-    };
-  }
-
   async get<T = any>(
-    url: string,
+    path: string,
     options?: RequestOptions,
   ): Promise<HttpResponse<T>> {
     const fetchOptions: RequestInit = {
@@ -46,7 +39,7 @@ export class HttpClientFetch implements HttpClient {
       },
     };
 
-    let newLocal = this.options.baseURL + url;
+    let url = this.options.baseURL + path;
 
     if (options?.params) {
       const params = new URLSearchParams();
@@ -55,10 +48,10 @@ export class HttpClientFetch implements HttpClient {
         params.append(key, value.toString());
       });
 
-      newLocal += `?${params.toString()}`;
+      url += `?${params.toString()}`;
     }
 
-    const response = await fetch(newLocal, fetchOptions);
+    const response = await fetch(url, fetchOptions);
 
     const headers: Record<string, string> = {};
 

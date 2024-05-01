@@ -6,7 +6,7 @@ type Credentials = {
   password: string;
 };
 
-export class FactorialLogger {
+export class FactorialAuthenticator {
   private static LOGIN_URL = "https://api.factorialhr.com/es/users/sign_in";
 
   public static authenticatedHeadersWith(cookie: string) {
@@ -31,7 +31,9 @@ export class FactorialLogger {
       throw new Error("Password must be provided");
     }
 
-    const response = await this.http.get<string>(FactorialLogger.LOGIN_URL);
+    const response = await this.http.get<string>(
+      FactorialAuthenticator.LOGIN_URL,
+    );
     const session = this.getSessionCookieFrom(response);
     const authenticityToken = this.getAuthenticityTokenFrom(response);
 
@@ -42,10 +44,10 @@ export class FactorialLogger {
     });
 
     const authenticatedResponse = await this.http.post(
-      FactorialLogger.LOGIN_URL,
+      FactorialAuthenticator.LOGIN_URL,
       params.toString(),
       {
-        headers: FactorialLogger.authenticatedHeadersWith(session),
+        headers: FactorialAuthenticator.authenticatedHeadersWith(session),
         maxRedirects: 0,
       },
     );
@@ -56,7 +58,7 @@ export class FactorialLogger {
   }
 
   private ensureIsOk(authenticatedResponse: HttpResponse) {
-    if (authenticatedResponse.data.includes(FactorialLogger.LOGIN_URL)) {
+    if (authenticatedResponse.data.includes(FactorialAuthenticator.LOGIN_URL)) {
       throw new Error("Invalid email or password");
     }
   }

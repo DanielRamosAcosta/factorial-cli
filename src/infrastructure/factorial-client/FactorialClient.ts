@@ -1,6 +1,6 @@
 import camelcaseKeys from "camelcase-keys";
 import { HttpClientFetch } from "../http-client/HttpClientFetch.js";
-import { FactorialLogger } from "../factorial-logger/FactorialLogger.js";
+import { FactorialAuthenticator } from "../factorial-logger/FactorialAuthenticator.js";
 import { Employees } from "./schema/Employees.js";
 import { Periods } from "./schema/Periods.js";
 import { Calendar } from "./schema/Calendar.js";
@@ -17,13 +17,13 @@ export class FactorialClient {
     password = config.password,
   } = {}) {
     const client = HttpClientFetch.create();
-    const logger = new FactorialLogger(client);
+    const authenticator = new FactorialAuthenticator(client);
 
-    const cookie = await logger.login({ email, password });
+    const cookie = await authenticator.login({ email, password });
 
     const authenticatedClient = HttpClientFetch.create({
       baseURL: "https://api.factorialhr.com",
-      headers: FactorialLogger.authenticatedHeadersWith(cookie),
+      headers: FactorialAuthenticator.authenticatedHeadersWith(cookie),
     });
 
     return new FactorialClient(authenticatedClient);
