@@ -14,7 +14,7 @@ export const Period = z.object({
   trackedMinutesDistribution: z.array(z.number()),
   distribution: z.array(z.number()),
   workedMinutesNotApprovedDistribution: z.array(z.number()),
-  totalBreakTaken: z.array(z.boolean()),
+  totalBreakTaken: z.array(z.boolean()).optional(),
   balanceMinutes: z.string(),
   balanceMinutesDistribution: z.array(z.number()),
   estimatedMinutes: z.number(),

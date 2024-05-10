@@ -1,5 +1,4 @@
-import { Primitives } from "../../shared/Primitives.js";
-import { Leave } from "./Leave.js";
+import { Leave, LeavePrimitives } from "./Leave.js";
 import { PeriodId } from "./PeriodId.js";
 import { Shift } from "./Shift.js";
 import { DayRange } from "./DayRange.js";
@@ -7,7 +6,11 @@ import { DayNumber } from "./DayNumber.js";
 import { MonthOfTheYear } from "./MonthOfTheYear.js";
 import { EmployeeId } from "./EmployeeId.js";
 
-export type DayPrimitives = Primitives<Day>;
+export type DayPrimitives = {
+  dayNumber: number;
+  leaves: Array<LeavePrimitives>;
+  isLaborable: boolean;
+};
 
 export class Day {
   static fromPrimitives(primitives: DayPrimitives) {
@@ -16,10 +19,6 @@ export class Day {
       primitives.leaves.map(Leave.fromPrimitives),
       primitives.isLaborable,
     );
-  }
-
-  static toPrimitives(day: Day) {
-    return day.toPrimitives();
   }
 
   static at(number: number) {
@@ -54,14 +53,6 @@ export class Day {
       monthOfTheYear.toPrimitives().month - 1,
       this.dayNumber.toPrimitives(),
     );
-  }
-
-  toPrimitives() {
-    return {
-      dayNumber: this.dayNumber.toPrimitives(),
-      leaves: this.leaves.map(Leave.toPrimitives),
-      isLaborable: this.isLaborable,
-    };
   }
 
   toString(): string {

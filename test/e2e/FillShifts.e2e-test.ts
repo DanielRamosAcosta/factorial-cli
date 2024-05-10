@@ -14,13 +14,18 @@ describe("FillShifts", () => {
   });
 
   it("saves the shifts", async () => {
+    const year = new Date().getFullYear();
+    const month = new Date().getMonth() + 1;
     const start = MomentOfTheDay.oClock(8);
     const end = MomentOfTheDay.oClock(16);
     const dayRange = DayRange.from(start).to(end);
+    const projectName = process.env.FACTORIAL_PROJECT_NAME;
+
+    if (!projectName) throw new Error("FACTORIAL_PROJECT_NAME is not set");
 
     await app.fillShifts.execute({
-      monthOfTheYear: MonthOfTheYear.at(2024, 1),
-      projectName: "My project",
+      monthOfTheYear: MonthOfTheYear.at(year, month),
+      projectName,
       dayRange,
       maxRandomMinute: new Minute(10),
     });

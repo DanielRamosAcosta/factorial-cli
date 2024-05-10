@@ -12,11 +12,12 @@ Fill your factorial shifts with ease
 ## Installation
 
 ```sh
-npm install -g factorial-cli
+# Setup env
 export FACTORIAL_USER_EMAIL=your-email
 export FACTORIAL_USER_PASSWORD=your-password
-factorial fill-shifts
-# done!
+
+# Execute
+npx factorial-cli fill-shifts --project ProjectName
 ```
 
 ## Usage

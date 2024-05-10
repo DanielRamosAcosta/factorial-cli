@@ -8,6 +8,7 @@ import { createApp } from "./createApp.js";
 import { DayRange } from "../../domain/models/DayRange.js";
 import { MomentOfTheDay } from "../../domain/models/MomentOfTheDay.js";
 import { Minute } from "../../domain/models/Minute.js";
+import { HttpClientError } from "../http-client/HttpClientFetch.js";
 
 const now = new Date();
 
@@ -89,4 +90,18 @@ yargs(hideBin(process.argv))
     },
   )
   .demandCommand(1)
+  .fail((msg, err) => {
+    if (err) {
+      if (err instanceof HttpClientError) {
+        const data = err.response.data;
+        console.error(JSON.stringify(data, null, 2));
+        process.exit(1);
+      }
+
+      throw err;
+    }
+    console.error(msg);
+    console.error(err);
+    process.exit(1);
+  })
   .parse();

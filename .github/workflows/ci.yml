@@ -1,29 +1,20 @@
 name: CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          fetch-depth: 2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Check types
-        run: npm run typecheck
-
-      - name: Run the tests
-        run: npm run test
-
-      - name: Build
-        run: npm run build
+          node-version: 22
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run test
+      - run: npm run build

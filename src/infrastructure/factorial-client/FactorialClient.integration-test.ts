@@ -1,7 +1,7 @@
 import { beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { FactorialClient } from "./FactorialClient.js";
 
-describe.skip("FactorialClient", () => {
+describe("FactorialClient", () => {
   let client: FactorialClient;
   const employeeId = 292281;
 

@@ -267,7 +267,6 @@
     "regularAccessStartsOn": "2019-10-04",
     "irpf": null,
     "pronouns": null,
-    "showBirthday": true,
     "permissions": {
       "hirings": {
         "read": true,
@@ -354,8 +353,8 @@
       "socialSecurityNumber": null,
       "hasWorkPermit": null
     },
-    "contactName": "Andrés Herrera Cárdenas",
-    "contactNumber": "+34 667 12 23 34",
+    "contactName": null,
+    "contactNumber": null,
     "phoneNumber": "666995511",
     "hiredOn": null,
     "identifier": "18523583G",

@@ -13,7 +13,8 @@ export class ProjectRepositoryFactorial implements ProjectRepository {
     );
 
     return projects.map(
-      (project) => new Project(new ProjectId(project.id), project.project.name),
+      (project) =>
+        new Project(new ProjectId(project.id), project.imputableProject.name),
     );
   }
 }

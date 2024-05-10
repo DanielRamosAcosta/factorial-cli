@@ -1,6 +1,6 @@
 {
   "name": "factorial-cli",
-  "version": "1.0.3",
+  "version": "1.0.8",
   "type": "module",
   "description": "Fill your factorial shifts with ease",
   "main": "dist/src/infrastructure/cli/main.js",
@@ -12,6 +12,8 @@
   "scripts": {
     "test": "npm run test:unitary",
     "test:unitary": "vitest --config vite.config.unitary.ts",
+    "test:integration": "vitest --config vite.config.integration.ts",
+    "test:e2e": "vitest --config vite.config.e2e.ts",
     "build": "tsc",
     "clean": "rimraf dist coverage",
     "typecheck": "tsc --noEmit"

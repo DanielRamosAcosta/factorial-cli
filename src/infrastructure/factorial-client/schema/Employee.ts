@@ -23,7 +23,7 @@ export const Employee = z.object({
   preferredName: z.string().nullable(),
   pronouns: z.string().nullable(),
   regularAccessStartsOn: z.string().nullable(),
-  showBirthday: z.boolean(),
+  showBirthday: z.boolean().optional(),
   supervisedByCurrent: z.boolean(),
   tenureStartDate: z.string().nullable(),
   terminatedOn: z.string().nullable(),

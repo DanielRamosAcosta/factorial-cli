@@ -1,5 +1,5 @@
-import { z } from "zod";
 import { Employee } from "./Employee.js";
+import { z } from "zod";
 
 export const MySelf = Employee.extend({
   country: z.enum(["es"]),
@@ -14,8 +14,8 @@ export const MySelf = Employee.extend({
     socialSecurityNumber: z.string().nullable(),
     hasWorkPermit: z.boolean().nullable(),
   }),
-  contactName: z.string(),
-  contactNumber: z.string(),
+  contactName: z.string().nullable(),
+  contactNumber: z.string().nullable(),
   phoneNumber: z.string(),
   hiredOn: z.string().nullable(),
   identifier: z.string(),
