@@ -43,13 +43,13 @@ OPTIONS:
 
     -r, --randomness <RANDOMNESS>
             The amount of minutes to add or substract to the default entry and exit times.
-    
+
     -o, --project <PROJECT>
             The project you want to set to fill shifts.
 
-        --entryTime <ENTRY_TIME>
+        --entryHour <ENTRY_HOUR>
             The default entry time you want to set to fill shifts. Default is 8am.
-        
-        --exitTime <EXIT_TIME>
+
+        --exitHour <EXIT_HOUR>
             The default exit time you want to set to fill shifts. Default is 8 hours after entry time.
 ```
