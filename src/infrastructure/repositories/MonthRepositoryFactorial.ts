@@ -1,6 +1,9 @@
 import { FactorialClient } from "../factorial-client/FactorialClient.js";
 import { EmployeeId } from "../../domain/models/EmployeeId.js";
-import { MonthOfTheYear } from "../../domain/models/MonthOfTheYear.js";
+import {
+  MonthOfTheYear,
+  MonthOfTheYearPrimitives,
+} from "../../domain/models/MonthOfTheYear.js";
 import { Month } from "../../domain/models/Month.js";
 import { CalendarDay } from "../factorial-client/schema/CalendarDay.js";
 import { DayPrimitives } from "../../domain/models/Day.js";
@@ -24,15 +27,21 @@ export class MonthRepositoryFactorial implements MonthRepository {
 
     return Month.fromPrimitives({
       monthOfTheYear: monthOfTheYear.toPrimitives(),
-      days: calendar.map(MonthRepositoryFactorial.dayToDomain),
+      days: calendar.map((d) =>
+        MonthRepositoryFactorial.dayToDomain(d, monthOfTheYear.toPrimitives()),
+      ),
     });
   }
 
-  private static dayToDomain(day: CalendarDay): DayPrimitives {
+  private static dayToDomain(
+    day: CalendarDay,
+    monthOfTheYear: MonthOfTheYearPrimitives,
+  ): DayPrimitives {
     return {
       dayNumber: day.day,
       leaves: day.leaves.map(MonthRepositoryFactorial.leaveToDomain),
       isLaborable: day.isLaborable,
+      monthOfTheYear,
     };
   }
 

@@ -13,6 +13,12 @@ export class ShiftRepositoryFactorial implements ShiftRepository {
   async save(shift: Shift) {
     const primitives = shift.toPrimitives();
 
+    const date =
+      primitives.monthOfTheYear.year +
+      "-" +
+      primitives.monthOfTheYear.month.toString().padStart(2, "0") +
+      "-" +
+      primitives.dayNumber.toString().padStart(2, "0");
     const shiftId = await this.factorial.createShift({
       periodId: primitives.currentPeriodId,
       clockInHour: primitives.dayRange.start.hour,
@@ -20,6 +26,7 @@ export class ShiftRepositoryFactorial implements ShiftRepository {
       clockOutHour: primitives.dayRange.end.hour,
       clockOutMinutes: primitives.dayRange.end.minute,
       day: primitives.dayNumber,
+      date,
     });
 
     // @ts-ignore
@@ -68,6 +75,7 @@ export class ShiftRepositoryFactorial implements ShiftRepository {
           minute: 0,
         },
       },
+      monthOfTheYear: {} as any, // TODO
     });
   }
 }

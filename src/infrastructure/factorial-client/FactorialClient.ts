@@ -137,6 +137,7 @@ export class FactorialClient {
     clockOutHour,
     clockOutMinutes,
     day,
+    date,
   }: {
     periodId: number;
     clockInHour: number;
@@ -144,12 +145,14 @@ export class FactorialClient {
     clockOutHour: number;
     clockOutMinutes: number;
     day: number;
+    date: string;
   }) {
     const response = await this.client.post("/attendance/shifts", {
       period_id: periodId,
       clock_in: `${clockInHour}:${clockInMinutes}`,
       clock_out: `${clockOutHour}:${clockOutMinutes}`,
       minutes: 0,
+      date,
       day,
       observations: null,
       history: [],

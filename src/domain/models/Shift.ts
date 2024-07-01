@@ -5,6 +5,7 @@ import { Primitives } from "../../shared/Primitives.js";
 import { DayNumber } from "./DayNumber.js";
 import { EmployeeId } from "./EmployeeId.js";
 import { ProjectId } from "./ProjectId.js";
+import { MonthOfTheYear } from "./MonthOfTheYear.js";
 
 export type ShiftPrimitives = Primitives<Shift>;
 
@@ -16,6 +17,7 @@ export class Shift {
       new DayNumber(primitives.dayNumber),
       PeriodId.fromPrimitives(primitives.currentPeriodId),
       DayRange.fromPrimitives(primitives.dayRange),
+      MonthOfTheYear.fromPrimitives(primitives.monthOfTheYear),
       primitives.projectId ? new ProjectId(primitives.projectId) : undefined,
     );
   }
@@ -25,8 +27,16 @@ export class Shift {
     value: DayNumber,
     currentPeriodId: PeriodId,
     dayRange: DayRange,
+    monthOfTheYear: MonthOfTheYear,
   ) {
-    return new Shift(null as any, employeeId, value, currentPeriodId, dayRange);
+    return new Shift(
+      null as any,
+      employeeId,
+      value,
+      currentPeriodId,
+      dayRange,
+      monthOfTheYear,
+    );
   }
 
   constructor(
@@ -35,6 +45,7 @@ export class Shift {
     private readonly dayNumber: DayNumber,
     private readonly currentPeriodId: PeriodId,
     private readonly dayRange: DayRange,
+    private readonly monthOfTheYear: MonthOfTheYear,
     private projectId?: ProjectId,
   ) {}
 
@@ -53,6 +64,7 @@ export class Shift {
       dayNumber: this.dayNumber.toPrimitives(),
       currentPeriodId: this.currentPeriodId.toPrimitives(),
       dayRange: this.dayRange.toPrimitives(),
+      monthOfTheYear: this.monthOfTheYear.toPrimitives(),
       projectId: this.projectId?.toPrimitives(),
     };
   }
