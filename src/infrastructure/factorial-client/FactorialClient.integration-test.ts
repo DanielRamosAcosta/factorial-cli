@@ -53,6 +53,7 @@ describe("FactorialClient", () => {
     let periodId: number;
     const year = new Date().getFullYear();
     const month = new Date().getMonth() + 1;
+    const date = `${year}-${month.toString().padStart(2, "0")}-18`;
 
     beforeEach(async () => {
       const periods = await client.getPeriods(employeeId, year, month);
@@ -72,6 +73,7 @@ describe("FactorialClient", () => {
         clockOutHour: 16,
         clockOutMinutes: 0,
         day: 18,
+        date,
       });
 
       const shifts = await client.getShifts(employeeId, periodId, year, month);
@@ -86,6 +88,7 @@ describe("FactorialClient", () => {
         clockOutHour: 16,
         clockOutMinutes: 0,
         day: 18,
+        date,
       });
       const secretProjectId = 116990;
 
@@ -100,6 +103,7 @@ describe("FactorialClient", () => {
         clockOutHour: 16,
         clockOutMinutes: 0,
         day: 18,
+        date,
       });
 
       await client.deleteShift(shiftId);

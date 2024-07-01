@@ -104,9 +104,10 @@ export class HttpClientFetch implements HttpClient {
       headers[key] = value;
     });
 
-    const data: T = headers["content-type"].includes("json")
-      ? await response.json()
-      : await response.text();
+    const data: T =
+      headers["content-type"].includes("json") && response.status !== 400
+        ? await response.json()
+        : await response.text();
 
     if (response.status >= 400) {
       throw new HttpClientError({
