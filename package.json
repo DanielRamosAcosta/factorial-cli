@@ -21,7 +21,7 @@
   "author": "Daniel Ramos Acosta",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^20.11.16",
+    "@types/node": "^22.0.0",
     "@types/yargs": "^17.0.32",
     "prettier": "^3.2.5",
     "rimraf": "^6.0.0",
