@@ -24,6 +24,6 @@ describe("FactorialAuthenticator", () => {
       password: "invalidPassword",
     });
 
-    expect(result).rejects.toThrowError("Invalid email or password");
+    await expect(result).rejects.toThrowError("Invalid email or password");
   });
 });

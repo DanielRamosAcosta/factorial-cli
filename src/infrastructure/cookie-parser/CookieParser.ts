@@ -3,11 +3,15 @@ export class CookieParser {
     return new CookieParser();
   }
 
-  parse(cookies: string): Record<string, string> {
+  parse(cookies: string | string[]): Record<string, string> {
+    const cookieArray = Array.isArray(cookies) ? cookies : [cookies];
+
     return Object.fromEntries(
-      cookies
-        .split("; ")
-        .map((row) => (row.includes("=") ? row.split("=") : [row, ""])),
+      cookieArray.map((cookie) => {
+        const [nameValue] = cookie.split("; ");
+        const [name, ...valueParts] = nameValue.split("=");
+        return [name, valueParts.join("=")];
+      }),
     );
   }
 }

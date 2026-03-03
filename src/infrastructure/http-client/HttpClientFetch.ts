@@ -53,13 +53,16 @@ export class HttpClientFetch implements HttpClient {
 
     const response = await fetch(url, fetchOptions);
 
-    const headers: Record<string, string> = {};
+    const headers: Record<string, string | string[]> = {};
 
     response.headers.forEach((value, key) => {
       headers[key] = value;
     });
 
-    const data: T = headers["content-type"].includes("json")
+    headers["set-cookie"] = response.headers.getSetCookie();
+
+    const contentType = headers["content-type"] as string;
+    const data: T = contentType.includes("json")
       ? await response.json()
       : await response.text();
 
@@ -98,14 +101,17 @@ export class HttpClientFetch implements HttpClient {
 
     const response = await fetch(this.options.baseURL + url, fetchOptions);
 
-    const headers: Record<string, string> = {};
+    const headers: Record<string, string | string[]> = {};
 
     response.headers.forEach((value, key) => {
       headers[key] = value;
     });
 
+    headers["set-cookie"] = response.headers.getSetCookie();
+
+    const contentType = headers["content-type"] as string;
     const data: T =
-      headers["content-type"].includes("json") && response.status !== 400
+      contentType.includes("json") && response.status !== 400
         ? await response.json()
         : await response.text();
 
@@ -134,13 +140,15 @@ export class HttpClientFetch implements HttpClient {
 
     const response = await fetch(this.options.baseURL + url, fetchOptions);
 
-    const headers: Record<string, string> = {};
+    const headers: Record<string, string | string[]> = {};
 
     response.headers.forEach((value, key) => {
       headers[key] = value;
     });
 
-    const contentType = headers["content-type"] || "";
+    headers["set-cookie"] = response.headers.getSetCookie();
+
+    const contentType = (headers["content-type"] as string) || "";
     const data: T = contentType.includes("json")
       ? await response.json()
       : await response.text();

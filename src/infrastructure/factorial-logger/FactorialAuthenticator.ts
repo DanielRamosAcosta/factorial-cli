@@ -58,7 +58,8 @@ export class FactorialAuthenticator {
   }
 
   private ensureIsOk(authenticatedResponse: HttpResponse) {
-    if (authenticatedResponse.data.includes(FactorialAuthenticator.LOGIN_URL)) {
+    const location = authenticatedResponse.headers["location"] as string;
+    if (location?.includes("/users/sign_in")) {
       throw new Error("Invalid email or password");
     }
   }
