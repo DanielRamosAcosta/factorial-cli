@@ -1,6 +1,6 @@
 {
   "name": "factorial-cli",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "type": "module",
   "description": "Fill your factorial shifts with ease",
   "main": "dist/src/infrastructure/cli/main.js",
