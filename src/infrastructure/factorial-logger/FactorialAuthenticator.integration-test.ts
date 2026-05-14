@@ -12,8 +12,8 @@ describe("FactorialAuthenticator", () => {
       password: config.password,
     });
 
-    expect(cookie).toMatch(/^[0-9a-f]+$/);
-    expect(cookie).toHaveLength(32);
+    // _factorial_id is a JWT: three base64url parts separated by dots.
+    expect(cookie).toMatch(/^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/);
   });
 
   it("throws an error if password is invalid", async () => {

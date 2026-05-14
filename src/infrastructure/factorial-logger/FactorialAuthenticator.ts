@@ -1,4 +1,5 @@
 import { HttpClient, HttpResponse } from "../http-client/HttpClient.js";
+import { HttpClientError } from "../http-client/HttpClientFetch.js";
 import { CookieParser } from "../cookie-parser/CookieParser.js";
 
 type Credentials = {
@@ -6,12 +7,15 @@ type Credentials = {
   password: string;
 };
 
+const SESSION_COOKIE_NAME = "_factorial_id";
+
 export class FactorialAuthenticator {
-  private static LOGIN_URL = "https://api.factorialhr.com/es/users/sign_in";
+  private static LOGIN_URL =
+    "https://id.factorialhr.com/api/auth/challenges/first_factor";
 
   public static authenticatedHeadersWith(cookie: string) {
     return {
-      cookie: `_factorial_session_v2=${cookie};`,
+      cookie: `${SESSION_COOKIE_NAME}=${cookie};`,
     };
   }
 
@@ -31,75 +35,49 @@ export class FactorialAuthenticator {
       throw new Error("Password must be provided");
     }
 
-    const response = await this.http.get<string>(
-      FactorialAuthenticator.LOGIN_URL,
-    );
-    const session = this.getSessionCookieFrom(response);
-    const authenticityToken = this.getAuthenticityTokenFrom(response);
+    let response: HttpResponse<{ success: boolean }>;
+    try {
+      response = await this.http.post(
+        FactorialAuthenticator.LOGIN_URL,
+        { email, password },
+        { headers: { accept: "application/json" } },
+      );
+    } catch (error) {
+      if (this.isInvalidCredentialsError(error)) {
+        throw new Error("Invalid email or password");
+      }
+      throw error;
+    }
 
-    const params = new URLSearchParams({
-      authenticity_token: authenticityToken,
-      "user[email]": email,
-      "user[password]": password,
-    });
-
-    const authenticatedResponse = await this.http.post(
-      FactorialAuthenticator.LOGIN_URL,
-      params.toString(),
-      {
-        headers: FactorialAuthenticator.authenticatedHeadersWith(session),
-        maxRedirects: 0,
-      },
-    );
-
-    this.ensureIsOk(authenticatedResponse);
-
-    return this.getSessionCookieFrom(authenticatedResponse);
-  }
-
-  private ensureIsOk(authenticatedResponse: HttpResponse) {
-    const location = authenticatedResponse.headers["location"] as string;
-    if (location?.includes("/users/sign_in")) {
+    if (!response.data.success) {
       throw new Error("Invalid email or password");
     }
+
+    return this.getSessionCookieFrom(response);
   }
 
-  private getSessionCookieFrom(response: HttpResponse<string>) {
-    const cookies = this.extractCookies(response);
-    return this.getFactorialSessionCookie(cookies);
-  }
-
-  private getFactorialSessionCookie(cookies: Record<string, string>) {
-    const factorialSession = cookies["_factorial_session_v2"];
-
-    if (!factorialSession) {
-      throw new Error("Could not find cookie factorial_session_v2");
+  private isInvalidCredentialsError(error: unknown): boolean {
+    if (!(error instanceof HttpClientError)) return false;
+    const body = error.response.data as
+      | { error?: { code?: string } }
+      | string
+      | undefined;
+    if (typeof body === "object" && body?.error?.code === "invalid_credentials") {
+      return true;
     }
-
-    return factorialSession;
+    return false;
   }
 
-  private extractCookies(response: HttpResponse<string>) {
-    const SET_COOKIE_PATH = "set-cookie";
-
-    const cookies = response.headers[SET_COOKIE_PATH];
-
-    if (!cookies) {
+  private getSessionCookieFrom(response: HttpResponse) {
+    const setCookie = response.headers["set-cookie"];
+    if (!setCookie) {
       throw new Error("Could not find cookies in response");
     }
-
-    return this.cookieParser.parse(cookies);
-  }
-
-  private getAuthenticityTokenFrom(response: HttpResponse<string>) {
-    const matches = response.data.match(
-      new RegExp(`name="authenticity_token" value="(.+?)"`),
-    );
-
-    if (!matches) {
-      throw new Error("Could not find authenticity_token token in login form");
+    const cookies = this.cookieParser.parse(setCookie);
+    const session = cookies[SESSION_COOKIE_NAME];
+    if (!session) {
+      throw new Error(`Could not find cookie ${SESSION_COOKIE_NAME}`);
     }
-
-    return matches[1];
+    return session;
   }
 }
